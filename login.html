@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 2%;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 100% viewport height */
+      }
+
+      .container {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        width: 90%; /* 90% viewport width */
+        max-width: 400px;
+        height: auto; /* Auto height */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px; /* Padding around the container */
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        padding: 2%;
+      }
+
+      .toggle-container {
+        display: flex;
+        justify-content: space-around;
+        background-color: #f4f4f4;
+        padding: 10px 0;
+      }
+
+      button {
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        background: transparent;
+        outline: none;
+      }
+
+      #loginForm {
+        display: none;
+      }
+
+      #signupForm {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px 15px; /* Padding added to the right */
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      /* Remove padding from input placeholders */
+      input::placeholder {
+        padding: 0;
+        margin: 0;
+      }
+
+      button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      .alert {
+        color: red;
+        font-weight: bold;
+        margin-top: 10px;
+        display: none;
+      }
+    </style>
+    <title>Login and Sign-up</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <form id="loginForm">
+          <!-- Login form content -->
+          <h2>Login</h2>
+          <div class="form-group">
+            <label for="loginEmail">Email:</label>
+            <input
+              type="email"
+              id="loginEmail"
+              name="loginEmail"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password:</label>
+            <input
+              type="password"
+              id="loginPassword"
+              name="loginPassword"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <form action="index.html" onsubmit="return validatePassword()">
+          <!-- Sign-up form content -->
+          <h2>Sign-up</h2>
+          <div class="form-group">
+            <label for="signupName">Name:</label>
+            <input
+              type="text"
+              id="signupName"
+              name="signupName"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signupEmail">Email:</label>
+            <input
+              type="email"
+              id="signupEmail"
+              name="signupEmail"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">Password:</label>
+            <input
+              type="password"
+              id="signupPassword"
+              name="signupPassword"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+          <a href="index.html"><button type="submit">Sign-up</button></a>
+          <div class="alert" id="passwordMismatch">Passwords do not match</div>
+        </form>
+      </div>
+      <div class="toggle-container">
+        <button id="toggleButton">Login</button>
+      </div>
+    </div>
+
+    <script>
+      const toggleButton = document.getElementById("toggleButton");
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+      const passwordMismatch = document.getElementById("passwordMismatch");
+
+      toggleButton.addEventListener("click", () => {
+        if (loginForm.style.display === "none") {
+          loginForm.style.display = "block";
+          signupForm.style.display = "none";
+          toggleButton.textContent = "Sign Up";
+        } else {
+          loginForm.style.display = "none";
+          signupForm.style.display = "block";
+          toggleButton.textContent = "Login";
+        }
+        // Reset the password mismatch message when switching forms
+        passwordMismatch.style.display = "none";
+      });
+
+      function validatePassword() {
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          passwordMismatch.style.display = "block";
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
